@@ -5,20 +5,15 @@ class Emplyee{
         this.email = email;
     }
 
-    getName(){
-
-    }
+    getName = (chosenEmplyee) => name;
     
-    getId(){
-
-    }
+    getId = (chosenEmplyee)=> id;
     
-    getEmail(){
-
-    }
+    getEmail = (chosenEmplyee) => email;
     
-    getRole(){ &mdash;
-        return Employee
-    }
+    // getRole(chosenEmplyee){ &mdash;
+        
+    //     return Employee
+    // }
 }
 module.exports = Emplyee;
