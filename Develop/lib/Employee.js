@@ -1,19 +1,16 @@
-class Emplyee{
+class Employee{
     constructor (name,id,email){
         this.name = name;
         this.id = id;
         this.email = email;
     }
 
-    getName = (chosenEmplyee) => name;
+    getName = function(){return this.name};
     
-    getId = (chosenEmplyee)=> id;
+    getId = function(){return this.id};
     
-    getEmail = (chosenEmplyee) => email;
+    getEmail = function(){return this.email};
     
-    // getRole(chosenEmplyee){ &mdash;
-        
-    //     return Employee
-    // }
+    getRole(){return 'Employee'};
 }
-module.exports = Emplyee;
+module.exports = Employee;
