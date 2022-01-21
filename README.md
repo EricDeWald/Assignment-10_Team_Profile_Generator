@@ -8,7 +8,9 @@ https://user-images.githubusercontent.com/16121983/150472816-ef7917f1-cee4-4b8f-
 
 ## Description
 
-This project is a dynamic web builder for a team.
+This project is a dynamic web builder to easily see the data of you team as a manager. 
+
+This was mainly built using Javascript, some JQuery, and a little HTML with some Bootstrap.
 
 ## Table of Contents
 
@@ -26,7 +28,6 @@ You will need the folloing installed in your terminal: npm inquirer and jest
 Use this to keep track of your teams information and contact data.
 
 
-
 ## How to Contribute
 
 No need to contribute. Thank you.
@@ -38,4 +39,4 @@ node run test should pass all the test casses included.
 
 ## Questions
 
-If you have any questions contact me at: none or here https://github.com/EricDeWald
+If you have any questions contact me at: https://github.com/EricDeWald
