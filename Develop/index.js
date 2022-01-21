@@ -55,11 +55,10 @@ engineerQs =[{
     message:"Enter GitHub ID: ", 
     name: "github"
 }]
-// const promptUser = inquirer.prompt(questions)
 
 // make questions and write to-file use page template.js  create a new instance of whatever there role is to put into the html that can be used with fs 
 const promptUser =function(){ return inquirer.prompt(questions)
-    .then((answers) => fs.writeFileSync('emp.html', generateHTML(answers)))
+    .then((answers) => fs.writeFileSync('emp.html', generateHTML([answers])))
     .then(() => console.log('Successfully wrote to index.html'))
     .catch((err) => console.error(err));
     // .then((ans)=>console.log((ans)))
