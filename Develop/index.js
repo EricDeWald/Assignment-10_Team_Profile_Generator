@@ -33,15 +33,17 @@ moreEmployee = function(){
         {
             type:"list", 
             message:"Enter another emplyee: ", 
-            choices:["Yes", "No. Print to file"],
+            choices:["Yes", "No. Make the site."],
             name: "another"
         }
     ])
     .then(function(data){
-        if(data == "Yes"){
+        const {another}= data
+        if(another == "Yes"){
             promptUser()
-        }else{
-
+        }else if (another == "No. Make the site."){
+            fs.writeFileSync('teamList.html', generateHTML(team))
+            
         } 
     })
 
@@ -55,18 +57,27 @@ specificQs = function(){
             manager = new Manager(name,id,email,officeNumber);
             team.push(manager);
             moreEmployee();
-
-
-        }
-            // creates a manager
-        )
-        
+        })
     }
     else if (kind == "Intern"){
         inquirer.prompt(internQs)
+        .then(data => {
+            const {school} = data;
+            intern = new Intern(name,id,email,school);
+            team.push(intern);
+            moreEmployee();
+        })
     }
     else if (kind == "Engineer"){
-        inquirer.prompt(engineerQs)}
+        const {name,id,email,kind} = answers
+        inquirer.prompt(engineerQs)
+        .then(data => {
+            const {github} = data;
+            engineer = new Engineer(name,id,email,github);
+            team.push(engineer);
+            moreEmployee();
+        })
+    }
 }
 managerQs =[
     {
@@ -87,10 +98,13 @@ engineerQs =[{
 
 // make questions and write to-file use page template.js  create a new instance of whatever there role is to put into the html that can be used with fs 
 const promptUser = function(){
-    answers = inquirer.prompt(questions)
-    .then(specificQs())
+    inquirer.prompt(questions)
+    .then(function(data){
+        answers = data
+        specificQs()
+    })
 }
-print = fs.writeFileSync('emp.html', generateHTML(team)).catch((err) => console.error(err));
+
 
 promptUser()
 
