@@ -6,7 +6,8 @@ const Manager = require("./lib/Manager")
 const Engineer = require("./lib/Engineer")
 const { log } = require("console")
 const generateHTML = require("./src/page-template")
-var answers
+var answers = []
+var team = []
 questions = [
     {
         type:"input",
@@ -27,16 +28,44 @@ questions = [
         name: "kind"
     },
 ]
-specificQs = function(data){
-    
-    if (data == "Manager"){
+moreEmployee = function(){
+    inquirer.prompt([
+        {
+            type:"list", 
+            message:"Enter another emplyee: ", 
+            choices:["Yes", "No. Print to file"],
+            name: "another"
+        }
+    ])
+    .then(function(data){
+        if(data == "Yes"){
+            promptUser()
+        }else{
+
+        } 
+    })
+
+}
+specificQs = function(){
+    const {name,id,email,kind} = answers
+    if (kind == "Manager"){
         inquirer.prompt(managerQs)
+        .then(data => {
+            const {officeNumber} = data;
+            manager = new Manager(name,id,email,officeNumber);
+            team.push(manager);
+            moreEmployee();
+
+
+        }
+            // creates a manager
+        )
         
     }
-    else if (data == "Intern"){
+    else if (kind == "Intern"){
         inquirer.prompt(internQs)
     }
-    else if (data == "Engineer"){
+    else if (kind == "Engineer"){
         inquirer.prompt(engineerQs)}
 }
 managerQs =[
@@ -57,22 +86,11 @@ engineerQs =[{
 }]
 
 // make questions and write to-file use page template.js  create a new instance of whatever there role is to put into the html that can be used with fs 
-const promptUser =function(){ return inquirer.prompt(questions)
-    .then((answers) => fs.writeFileSync('emp.html', generateHTML([answers])))
-    .then(() => console.log('Successfully wrote to index.html'))
-    .catch((err) => console.error(err));
-    // .then((ans)=>console.log((ans)))
+const promptUser = function(){
+    answers = inquirer.prompt(questions)
+    .then(specificQs())
 }
-
-// {specificQs(ans)}).then(()=>
+print = fs.writeFileSync('emp.html', generateHTML(team)).catch((err) => console.error(err));
 
 promptUser()
 
-// const init = () => {
-//     promptUser()
-//         
-//         .then(() => console.log('Successfully wrote to index.html'))
-//         .catch((err) => console.error(err));
-//     };
-  
-// init();
