@@ -23,18 +23,20 @@ questions = [
     },{
         type:"list",
         message:"What kind of employee?: ",
-        choices:['Manager', 'Engineer', 'Intern'],
+        choices:['Manager','Engineer','Intern'],
         name: "kind"
     },
 ]
-specificQs = ({kind}) => {
+specificQs = function({kind}){
     if (kind == "Manager"){
-        inquirer.prompt(managerQs)
+        ans = ans.concat(inquirer.prompt(managerQs))
+
     }
     else if (kind == "Intern"){
-        inquirer.prompt(internQs)
+        ans = ans.concat(inquirer.prompt(internQs))
     }
-    else {inquirer.prompt(engineerQs)}
+    else if (kind == "Engineer"){
+        ans = ans.concat(inquirer.prompt(engineerQs))}
 }
 managerQs =[
     {
@@ -54,7 +56,7 @@ engineerQs =[{
 }]
 
 // make questions and write to-file use page template.js  create a new instance of whatever there role is to put into the html that can be used with fs 
-const promptUser =function(){ return inquirer.prompt(questions).then(({specificQs(ans)})).then()}
+const promptUser =function(){ return inquirer.prompt(questions).then((ans)=>{specificQs(ans)})}
 promptUser()
 // const init = () => {
 //     promptUser()
