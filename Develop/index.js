@@ -5,6 +5,7 @@ const Intern = require("./lib/Intern")
 const Manager = require("./lib/Manager")
 const Engineer = require("./lib/Engineer")
 const { log } = require("console")
+const generateHTML = require("./src/page-template")
 
 questions = [
     {
@@ -26,6 +27,15 @@ questions = [
         name: "kind"
     },
 ]
+specificQs = ({kind}) => {
+    if (kind == "Manager"){
+        inquirer.prompt(managerQs)
+    }
+    else if (kind == "Intern"){
+        inquirer.prompt(internQs)
+    }
+    else {inquirer.prompt(engineerQs)}
+}
 managerQs =[
     {
     type:"input", 
@@ -44,16 +54,14 @@ engineerQs =[{
 }]
 
 // make questions and write to-file use page template.js  create a new instance of whatever there role is to put into the html that can be used with fs 
-const promptUser = inquirer.prompt(questions).then((ans)=>{console.log(ans)})
-
-const generateHTML = ({}) => "html gargabage"
-
-const init = () => {
-    promptUser()
-        .then((answers) => fs.writeFileSync('index.html', generateHTML(answers)))
-        .then(() => console.log('Successfully wrote to index.html'))
-        .catch((err) => console.error(err));
-    };
+const promptUser =function(){ return inquirer.prompt(questions).then(({specificQs(ans)})).then()}
+promptUser()
+// const init = () => {
+//     promptUser()
+//         .then((answers) => fs.writeFileSync('index.html', generateHTML(answers)))
+//         .then(() => console.log('Successfully wrote to index.html'))
+//         .catch((err) => console.error(err));
+//     };
   
-init();
+// init();
   
